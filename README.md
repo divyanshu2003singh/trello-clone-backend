@@ -115,6 +115,114 @@ Use only the login token to to test the endpoints without that testing can not b
 
 - **GET /api/tasks**: Get all tasks.
 - **POST /api/tasks**: Create a new task.
+Certainly! Here's a guide to testing each endpoint using Postman, along with example request bodies for each operation based on the provided backend code.
+
+### Endpoints and Example Request Bodies
+
+#### Authentication Endpoints
+
+1. **Register User**
+
+   - **POST** `/api/auth/register`
+   
+   **Body**:
+   ```json
+   {
+     "name": "John Doe",
+     "email": "johndoe@example.com",
+     "password": "password123"
+   }
+   ```
+
+2. **Login User**
+
+   - **POST** `/api/auth/login`
+   
+   **Body**:
+   ```json
+   {
+     "email": "johndoe@example.com",
+     "password": "password123"
+   }
+   ```
+
+   **Note**: Upon successful login, you'll receive a JWT token in the response which you can use for subsequent authenticated requests.
+
+#### Project Endpoints
+
+3. **Create Project**
+
+   - **POST** `/api/projects`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+   **Body**:
+   ```json
+   {
+     "name": "Project 1",
+     "description": "This is the description of Project 1"
+   }
+   ```
+
+4. **Get Projects**
+
+   - **GET** `/api/projects`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+5. **Get Project by ID**
+
+   - **GET** `/api/projects/:id`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+   **Note**: Replace `:id` with the actual ID of the project.
+
+#### Task Endpoints
+
+6. **Create Task**
+
+   - **POST** `/api/tasks`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+   **Body**:
+   ```json
+   {
+     "project": "project_id_here",
+     "name": "Task 1",
+     "description": "This is the description of Task 1",
+     "status": "Backlog",
+     "tags": ["tag1", "tag2"],
+     "dueDate": "2024-07-17",
+     "assignedUser": "user_id_here"
+   }
+   ```
+
+   **Note**: Replace `"project_id_here"` and `"user_id_here"` with actual IDs from your database.
+
+7. **Get Tasks for a Project**
+
+   - **GET** `/api/tasks/:projectId`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+   **Note**: Replace `:projectId` with the actual ID of the project.
+
+8. **Get All Tasks**
+
+   - **GET** `/api/tasks`
+   - **Headers**: 
+     - `Authorization`: Bearer `your_jwt_token_here`
+
+### Testing Steps
+
+1. Open Postman and create a new request collection.
+2. Add requests for each endpoint as described above.
+3. Set the request method (`POST`, `GET`) and URL (`/api/auth/register`, `/api/auth/login`, `/api/projects`, etc.).
+4. Set the appropriate headers for authenticated requests (`Authorization: Bearer your_jwt_token_here`).
+5. Set the request body as per the examples provided above.
+6. Send the requests and verify the responses to ensure they match the expected behavior.
 
 
 ### Middleware
